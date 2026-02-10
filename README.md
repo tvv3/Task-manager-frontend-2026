@@ -27,6 +27,8 @@ server: {
 
   pentru a rula pe portul 3000.
 
+4. trebuie creat fisierul .env in care setam VITE_APP_ENV=development #production sau development
+
 # Rulare locala
   Se ruleaza intai backend-ul pe portul 8000 si apoi front end-ul pe portul 3000 cu 
 
