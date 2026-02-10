@@ -1,0 +1,111 @@
+body {
+  background-color: rgb(125, 125, 140);/*#eee;*/
+  /* rgb(22, 20, 22) #261349*/
+  ;
+}
+
+.bg-violet-custom{
+  background: #7e40f6;
+}
+
+.bg-violet-custom:hover{
+  background: #9460fc;
+}
+
+.text-violet-custom 
+{color: #7e40f6;
+}
+
+/* body, */
+.gradient-custom-1 {
+  /* fallback for old browsers */
+  background: #7e40f6;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  /* background: -webkit-linear-gradient(
+    to right,
+    rgba(126, 64, 246, 1),
+    rgba(80, 139, 252, 0.5)
+  );*/
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  /* background: linear-gradient(
+    to right,
+    rgba(126, 64, 246, 1),
+    rgba(80, 139, 252, 0.5)
+  );*/
+}
+
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+nav {
+
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/*nav a.router-link-active {
+  color: rgb(106, 35, 247);
+ 
+}
+
+nav a.router-link-active:hover {
+  color: rgba(106, 35, 247, 0.7);
+  ;
+}*/
+
+nav a.router-link-exact-active {
+  color: #692fdd; /*rgb(126, 64, 246);*/
+  /*var(--color-text);*/
+}
+
+nav a.router-link-exact-active:hover {
+  color: rgba(126, 64, 246, 0.9);
+  ;
+}
+
+
+
+#logoutButton {
+  /*background: #7e40f6;*/
+  color: white;
+}
+
+nav a {
+  /*background: #7e40f6;*/
+  color: black;
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+  
+}
+
+nav a:hover {
+  color: rgba(0, 0, 0, 0.7);
+  
+}
+
+/*#logoutButton {
+  background: #7e40f6;
+  border-radius:2em;
+}*/
+
+nav a:first-of-type {
+  border: 0;
+}
+
+/*
+@media only screen and (min-width:1024px) {
+  #navbarSupportedContent {display:flex; justify-content:center;}
+}*/
