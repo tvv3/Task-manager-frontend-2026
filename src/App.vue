@@ -23,7 +23,7 @@ const authStore = useAuthStore();
        <p class="text-left" style="color:blueviolet;font-weight: bold;"> Tasks App </p>
     
        <div v-if="authStore.user">
-      You are connected with:
+      
        <strong> {{ authStore.user.name }}</strong>
       </div>
       </div>
