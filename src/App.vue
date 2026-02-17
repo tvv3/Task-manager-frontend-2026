@@ -20,7 +20,7 @@ const authStore = useAuthStore();
 
     <header>
       <div class="d-flex justify-content-between" style="margin:2rem;">
-       <p class="text-left" style="color:blueviolet;font-weight: bold;"> Tasks App v.7c </p>
+       <p class="text-left" style="color:blueviolet;font-weight: bold;"> Tasks App </p>
     
        <div v-if="authStore.user">
       You are connected with:
