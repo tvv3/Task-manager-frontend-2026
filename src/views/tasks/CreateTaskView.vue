@@ -8,7 +8,8 @@ const {createTask} = useTasksStore();
 const {user}= storeToRefs(useAuthStore());
 const formData=reactive({
     title:"",
-    is_done:false
+    is_done:false,
+    description: null,
 });
 const {errors} = storeToRefs(useTasksStore());
 function isNormalUser()
@@ -29,6 +30,13 @@ onMounted(()=>{errors.value={};
     <label for="exampleFormControlTextarea1">Title:</label>
     <textarea class="form-control" v-model="formData.title" id="exampleFormControlTextarea1" rows="3"></textarea>
     <p class="text-danger" v-if="errors?errors.title:false">{{ errors.title[0] }}</p> 
+                    
+  </div>
+
+  <div class="form-group mb-3">
+    <label for="descr">Description:</label>
+    <textarea class="form-control" v-model="formData.description" id="descr" rows="3"></textarea>
+    <p class="text-danger" v-if="errors?errors.description:false">{{ errors.description[0] }}</p> 
                     
   </div>
 

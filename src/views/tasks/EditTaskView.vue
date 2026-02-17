@@ -10,8 +10,8 @@ const {editTask, getTask} = useTasksStore();
 const is_vizible_page=ref(false);
 const task_id=ref(null);
 const route=useRoute();
-const taskData=ref({title:'', is_done: false});
-const taskData2=ref({title:'', is_done: false, manager_user_id: ''});
+const taskData=ref({title:'', is_done: false, description:null});
+const taskData2=ref({title:'', is_done: false, manager_user_id: '', description:null});
 const {errors} = storeToRefs(useTasksStore());
 const {user}=storeToRefs(useAuthStore());
 task_id.value=route.params.id;
@@ -30,6 +30,7 @@ else
   task_id.value=route.params.id;
   taskData.value.title=taskData2.value.title;
   taskData.value.is_done=taskData2.value.is_done;
+  taskData.value.description=taskData2.value.description;
   is_vizible_page.value=true;
 }
 });
@@ -41,8 +42,14 @@ else
   <div class="form-group mb-3">
     <label for="exampleFormControlTextarea1">Title:</label>
     <textarea class="form-control" v-model="taskData.title" id="exampleFormControlTextarea1" rows="3"></textarea>
-    <p class="text-danger" v-if="errors?errors.title:false">{{ errors.title[0] }}</p> 
-                    
+    <p class="text-danger" v-if="errors?errors.title:false">{{ errors.title[0] }}</p>                 
+  </div>
+
+
+  <div class="form-group mb-3">
+    <label for="exampleFormControlTextarea2">Description:</label>
+    <textarea class="form-control" v-model="taskData.description" id="exampleFormControlTextarea2" rows="5"></textarea>
+    <p class="text-danger" v-if="errors?errors.description:false">{{ errors.description[0] }}</p>             
   </div>
 
   <div class="form-group form-check mb-3">

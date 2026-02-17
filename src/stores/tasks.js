@@ -218,13 +218,14 @@ export const useTasksStore = defineStore("TasksStore", {
               if (isDev)
               {
               
-              this.errors = {task: data.errors.title || data.errors.is_done || data.errors.user_id || ["Error at task update"] };
+              this.errors = {task: data.errors.title || data.errors.is_done || data.errors.user_id|| data.errors.description || ["Error at task update"] };
               console.log(5.5);
               }
               else
                 if (data?.errors)
                 this.errors= {
-                    task: data.errors.title ? ["Please check your edited task"] : ( data.errors.is_done ? ["Please check your task's new status"] : ["Error at task update"]),
+                    task: data.errors.title ? ["Please check your edited task"] : ( data.errors.is_done ? ["Please check your task's new status"] :
+                       (data.errors.description? ["Please check your task's description"]:["Error at task update"])),
                      //task_id or task ???
                   };
                 else this.errors={ task: ["Error at task's update"] };
@@ -568,13 +569,14 @@ export const useTasksStore = defineStore("TasksStore", {
              
               if (isDev)
               { 
-              this.errors = {task: data.errors.title || data.errors.is_done || data.errors.user_id || ["Error at task create"] };
+              this.errors = {task: data.errors.title || data.errors.is_done || data.errors.user_id||data.errors.description || ["Error at task create"] };
               console.log(5.5);
               }
               else
                 if (data?.errors)
                 this.errors= {
-                    task: data.errors.title ? ["Please check your task"] : ( data.errors.is_done ? ["Please check your task's status"] : ["Error at task create"]),
+                    task: data.errors.title ? ["Please check your task"] : ( data.errors.is_done ? ["Please check your task's status"] : 
+                      (data.errors.description ? ["Please check your task's description"]:["Error at task create"])),
                      //task_id or task ???
                   };
                 else this.errors={ task: ["Error at task's creation"] };

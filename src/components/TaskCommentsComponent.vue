@@ -141,7 +141,6 @@ async function handleDeleteComment(comment, task)
         </div>
         <br>
         
-        
         <TaskDetailedComponent v-if="task" :task="task" />
          <p class="text-danger" style="margin-left:30px;font-weight:bold; margin-top:-10px;" v-if="errorsOfTask?.task" >{{ errorsOfTask.task[0] }}</p>           
         <p class="text-danger" style="margin-left:30px;font-weight:bold; margin-top:-10px;" v-if="(!errorsOfTask?.task)&&errors?.task">{{ errors.task[0] }}</p> 
