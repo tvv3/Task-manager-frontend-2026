@@ -18,13 +18,17 @@ const tasksStore = useTasksStore();
 
 const currentPage=ref(1);//mandatory 1
 const route=useRoute();
+const searchedText=ref(null);
 const filtered_status=computed(()=>route.query.status? route.query.status: "all");
+const filtered_text=computed(()=>route.query.text? route.query.text: "");
+
 onMounted( async ()=> {
  errors.value={};
  currentPage.value = route.query.page ? parseInt(route.query.page) : 1;
+ searchedText.value=route.query.text ? route.query.text : "";
  //filtered_status.value=computed(()=>route.params.status? route.params.status: "all");
  await tasksStore.getTasks(route.query.page ? parseInt(route.query.page) : 1, 
-                           filtered_status.value);
+                           filtered_status.value, filtered_text.value);
 }
 
 );
@@ -50,13 +54,13 @@ async function handleDeleteTaskParent(task)
 
 //for pagination
 // Watch for route query changes (pagination clicks)
-watch(() => [route.query.page, route.query.status],
-  ([newPage, newStatus]) => {
+watch(() => [route.query.page, route.query.status, route.query.text],
+  ([newPage, newStatus, newText]) => {
   //console.log("Watch triggered! Page changed to:", newPage);
   currentPage.value = newPage ? parseInt(newPage) : 1;
-  console.log("Watch triggered! Page changed to:", newPage);
+  //console.log("Watch triggered! Page changed to:", newPage);
  
-  tasksStore.getTasks(currentPage.value,filtered_status.value);
+  tasksStore.getTasks(currentPage.value,filtered_status.value, filtered_text.value);
 });
 
 //for pagination
@@ -104,14 +108,26 @@ const changePage = (page) => {
               <RouterLink id="addNewTaskButton" to="#" class="btn btn-primary mb-4" style="border-radius: 50%; background-color: gray;"><i class="bi bi-plus" style="font-size:22px;"></i></RouterLink>
              
               </template>
-              <div>
+              <div class="mb-4 d-flex justify-content-center">
+                <div class="d-flex col-xl-4 col-lg-4 col-sm-12">
+                 <div class="input-group">
+                   <input class="form-control form-control-sm" type="search" placeholder="Search text in tasks" aria-label="Search"
+                     v-model="searchedText"
+                     @keyup.enter="$router.push({ name: 'tasks', query: searchedText ? { text: searchedText, page: 1 } : { page: 1 } })"
+                     >
+                   <RouterLink id="viewFilteredTasksBySearchedTextButton" :to="{name: 'tasks', query: (searchedText? ({'text':searchedText, 'page': 1}) :  ({'page': 1}))}" class="btn btn-success text-white" style="margin-right:20px;"><i class="bi bi-search"></i></RouterLink>
+                 </div>
+                </div>
+              </div>
+
+               <div>
                <RouterLink id="viewOpenedTasksButton" :to="{name: 'tasks', query: {'status': 'opened', 'page': 1}}" class="btn btn-success mb-4 text-white" style="margin-right:20px;">Opened tasks</RouterLink>
              
                <RouterLink id="viewFinishedTasksButton" :to="{name: 'tasks', query: {'status': 'finished', 'page': 1}}" class="btn mb-4 text-white" style="background-color: blueviolet;margin-right:20px;">Finished tasks</RouterLink>
             
                <RouterLink id="viewAllTasksButton" :to="{name: 'tasks', query: {'page': 1}}" class="btn mb-4 text-white" style="background-color: black;">All tasks</RouterLink>
               </div>
-              <p><span>Showed tasks: </span> <strong>{{ filtered_status }}</strong></p>
+              <p><span>Showed tasks: </span> <strong v-if="!filtered_text">{{ filtered_status }}</strong> <strong v-if="filtered_text">{{ 'containing: "'+ filtered_text+'"' }}</strong></p>
             </div>
             <div style="padding-left:30px;padding-right:30px;">
              <p class="d-block text-danger" style="margin-left:30px;font-weight:bold; margin-top:-10px;" v-if="errors?(errors.form?true:(errors.task?true:false)):false">{{ errors.form?errors.form[0]:errors.task[0] }}</p> 

@@ -643,18 +643,23 @@ export const useTasksStore = defineStore("TasksStore", {
     },
 
     /************************* getTasks ***************/
-    async getTasks(currentPage, filteredStatus) {
+    async getTasks(currentPage, filteredStatus, filteredText) {
       //currentPage validation with error messages in form field -- not needed
       this.tasks.data=[];
       this.mytasks=[];
-      console.log('initial=',filteredStatus);
+     // console.log('initial=',filteredStatus);
       if ((filteredStatus!="opened")&&(filteredStatus!="finished"))
       {
         
         filteredStatus="all";
         
       }
-      console.log('final=',filteredStatus);
+     // console.log('final1=',filteredStatus);
+      if (filteredText)
+      {
+        filteredStatus="all";
+      }
+     // console.log('final1=',filteredStatus+' '+filteredText);
       //all have rights no 1,2,3,4.1, 4.2
       try {//5
         //no 5.0
@@ -662,6 +667,8 @@ export const useTasksStore = defineStore("TasksStore", {
         if (filteredStatus=="all")
         {
 
+        if (!filteredText)
+        {
         res = await fetch(`${this.myserver}/tasks?page=${currentPage}`, {
           method: "GET",
           headers: {
@@ -671,8 +678,21 @@ export const useTasksStore = defineStore("TasksStore", {
           },
           credentials: "include",
         });//5.1
-          console.log("res all");
+          console.log("r1");
          }
+          else {
+            res = await fetch(`${this.myserver}/tasks?text=${filteredText}&page=${currentPage}`, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+             "X-XSRF-TOKEN": this.getCookie("XSRF-TOKEN"),
+          },
+          credentials: "include",
+           });//5.1
+           console.log("r2");
+          }
+        }
          else if ((filteredStatus=="opened")||(filteredStatus=="finished"))
          {
              res = await fetch(`${this.myserver}/tasks?status=${filteredStatus}&page=${currentPage}`, {
@@ -684,13 +704,15 @@ export const useTasksStore = defineStore("TasksStore", {
           },
           credentials: "include",
         });//5.1
+        console.log("r3");
          }
          else 
          {
            this.errors={'form':["Error in finding the tasks. See filtered status."]};
+           console.log("r4");
            return;
          }
-        console.log(res);
+        //console.log(res);
         if (handle419(res,this,'form')) return;//5.1.b
 
           //const data = await res.json();//5.2
