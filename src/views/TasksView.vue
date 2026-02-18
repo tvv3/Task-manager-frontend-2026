@@ -109,7 +109,7 @@ const changePage = (page) => {
              
               </template>
               <div class="mb-4 d-flex justify-content-center">
-                <div class="d-flex col-lg-6">
+                <div class="d-flex col-6 col-sm-12">
                  <div class="input-group">
                    <input class="form-control" type="search" placeholder="Search text in tasks" aria-label="Search"
                      v-model="searchedText"
