@@ -109,9 +109,9 @@ const changePage = (page) => {
              
               </template>
               <div class="mb-4 d-flex justify-content-center">
-                <div class="d-flex col-xl-4 col-lg-4 col-sm-12">
+                <div class="d-flex col-lg-6">
                  <div class="input-group">
-                   <input class="form-control form-control-sm" type="search" placeholder="Search text in tasks" aria-label="Search"
+                   <input class="form-control" type="search" placeholder="Search text in tasks" aria-label="Search"
                      v-model="searchedText"
                      @keyup.enter="$router.push({ name: 'tasks', query: searchedText ? { text: searchedText, page: 1 } : { page: 1 } })"
                      >
